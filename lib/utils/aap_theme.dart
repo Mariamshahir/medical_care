@@ -19,4 +19,6 @@ abstract class AppTheme {
       color: AppColors.primaryColor, fontSize: 30, fontWeight: FontWeight.w600);
   static const TextStyle name = TextStyle(
       color: AppColors.primaryColor, fontSize: 20, fontWeight: FontWeight.w700);
+  static const TextStyle dialog = TextStyle(
+      color: AppColors.primaryColor, fontSize: 14, fontWeight: FontWeight.w500);
 }
