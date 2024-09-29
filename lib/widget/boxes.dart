@@ -5,11 +5,13 @@ import 'package:medical_care/utils/app_colors.dart';
 class Boxes extends StatefulWidget {
   final String name;
   final IconData icon;
+  final VoidCallback onTap;
 
   const Boxes({
     Key? key,
     required this.name,
     required this.icon,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -17,16 +19,19 @@ class Boxes extends StatefulWidget {
 }
 
 class _BoxesState extends State<Boxes> {
-  bool _isSelected = false;
+  bool isDone = false; // State to track if done button was clicked
+
+  void handleTap() {
+    widget.onTap(); // Call the provided onTap function
+    setState(() {
+      isDone = true; // Update the state to show the done icon
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        setState(() {
-          _isSelected = !_isSelected;
-        });
-      },
+      onTap: handleTap,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height * 0.07,
@@ -48,20 +53,14 @@ class _BoxesState extends State<Boxes> {
                 color: AppColors.primaryColor,
                 size: 30,
               ),
-              const SizedBox(
-                width: 5,
+              const SizedBox(width: 5),
+              Text(
+                widget.name,
+                style: AppTheme.tabs.copyWith(color: AppColors.primaryColor),
               ),
-              Expanded(
-                child: Text(
-                  widget.name,
-                  style: AppTheme.tabs.copyWith(color: AppColors.primaryColor),
-                ),
-              ),
-              if (_isSelected)
-                const Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
-                ),
+              const Spacer(), // Push the icon to the end
+              if (isDone) // Conditionally show the icon
+                const Icon(Icons.check_circle, color: Colors.green),
             ],
           ),
         ),
@@ -69,3 +68,4 @@ class _BoxesState extends State<Boxes> {
     );
   }
 }
+
