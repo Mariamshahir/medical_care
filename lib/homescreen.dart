@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/screens/add_drug.dart';
 import 'package:medical_care/screens/profile.dart';
 import 'package:medical_care/screens/questions.dart';
-import 'package:medical_care/screens/remamber.dart';
+import 'package:medical_care/widget/remamber.dart';
 import 'package:medical_care/utils/aap_theme.dart';
 import 'package:medical_care/utils/app_assets.dart';
 import 'package:medical_care/utils/app_colors.dart';

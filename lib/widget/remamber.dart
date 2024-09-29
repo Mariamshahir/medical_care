@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medical_care/screens/add_drug.dart';
 import 'package:medical_care/utils/aap_theme.dart';
 import 'package:medical_care/utils/app_colors.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medical_care/screens/edit_add.dart';
-import 'package:medical_care/screens/remamber.dart';
+import 'package:medical_care/screens/questions.dart';
+import 'package:medical_care/widget/remamber.dart';
 import 'package:medical_care/utils/aap_theme.dart';
 import 'package:medical_care/utils/app_assets.dart';
 import 'package:medical_care/utils/app_colors.dart';
@@ -90,7 +91,7 @@ class AddDrug extends StatelessWidget {
             ),
             const Spacer(),
             const NextSteps(
-                nextStep: EditAdd.routeName, nameNextStep: "Add new drug")
+                nextStep: Questions.routeName, nameNextStep: "Add new drug")
           ],
         ),
       ),

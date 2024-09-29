@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:medical_care/screens/remamber.dart';
+import 'package:medical_care/widget/remamber.dart';
 import 'package:medical_care/utils/app_assets.dart';
 import 'package:medical_care/utils/app_colors.dart';
 import 'package:medical_care/widget/pill.dart';
+import 'package:medical_care/widget/popup_dialog.dart';
 
 class EditAdd extends StatelessWidget {
   static const String routeName = "editadd";
@@ -38,7 +39,7 @@ class EditAdd extends StatelessWidget {
           children: [
             const Remamber(
               title: "Metaformin",
-              disc: "Diabetes drug ",
+              disc: "Diabetes drug",
               time: "8 AM",
               backgroundColor: AppColors.green,
               img: AppAssets.drug,
@@ -46,7 +47,7 @@ class EditAdd extends StatelessWidget {
               rem: "1 cap",
               colorIcon: AppColors.primaryColor,
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(height: 30),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 35),
               width: MediaQuery.of(context).size.width,
@@ -56,16 +57,24 @@ class EditAdd extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(
                     top: Radius.circular(50), bottom: Radius.zero),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8,),
-                ///ListView
-                child: Column(
-                  children: [
-                    Pill(),
-                  ],
-                ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (context,index){
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: InkWell(
+                        onTap: (){
+                          showDialog(context: context, builder: (BuildContext context){
+                            return const PopupDialog();
+                          });
+                        },
+                        child: const Pill()),
+                  );
+                }),
               ),
-            )
+            ),
           ],
         ),
       ),
