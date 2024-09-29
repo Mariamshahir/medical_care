@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:medical_care/utils/aap_theme.dart';
 import 'package:medical_care/utils/app_colors.dart';
 
-class ShowDialog extends StatelessWidget {
+class ShowDialog extends StatefulWidget {
   final IconData icon;
   final String title;
   final String text;
   final String? hint;
-  final VoidCallback? onDone;
+  final ValueChanged<bool>? onTextEntered;
 
   const ShowDialog({
     Key? key,
@@ -15,8 +15,31 @@ class ShowDialog extends StatelessWidget {
     required this.title,
     required this.text,
     this.hint,
-    this.onDone,
+    this.onTextEntered,
   }) : super(key: key);
+
+  @override
+  _ShowDialogState createState() => _ShowDialogState();
+}
+
+class _ShowDialogState extends State<ShowDialog> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onTextChanged);
+  }
+
+  void _onTextChanged() {
+    widget.onTextEntered?.call(_controller.text.isNotEmpty);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +48,13 @@ class ShowDialog extends StatelessWidget {
       title: Row(
         children: [
           Icon(
-            icon,
+            widget.icon,
             color: AppColors.primaryColor,
           ),
           const SizedBox(width: 5),
           Expanded(
             child: Text(
-              title,
+              widget.title,
               style: AppTheme.dialog,
               maxLines: 2,
             ),
@@ -39,8 +62,9 @@ class ShowDialog extends StatelessWidget {
         ],
       ),
       content: TextField(
+        controller: _controller,
         decoration: InputDecoration(
-          labelText: text,
+          labelText: widget.text,
           labelStyle: AppTheme.dialog,
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -52,10 +76,10 @@ class ShowDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        if (hint != null)
+        if (widget.hint != null)
           Center(
             child: Text(
-              hint!,
+              widget.hint!,
               style: AppTheme.dialog,
             ),
           ),
@@ -64,7 +88,6 @@ class ShowDialog extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            onDone?.call();
             Navigator.of(context).pop();
           },
           child: Container(

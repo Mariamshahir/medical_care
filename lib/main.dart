@@ -5,6 +5,7 @@ import 'package:medical_care/screens/conferm.dart';
 import 'package:medical_care/screens/edit_add.dart';
 import 'package:medical_care/screens/profile.dart';
 import 'package:medical_care/screens/questions.dart';
+import 'package:medical_care/screens/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         AddDrug.routeName: (context) => const AddDrug(),
         EditAdd.routeName: (context) => const EditAdd(),
         Questions.routeName: (context) => const Questions(),
+        Splash.routeName:(context)=> const Splash()
       },
       initialRoute: Profile.routeName,
     );

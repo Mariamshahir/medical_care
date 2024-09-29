@@ -61,18 +61,20 @@ class EditAdd extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: ListView.builder(
                     itemCount: 20,
-                    itemBuilder: (context,index){
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: InkWell(
-                        onTap: (){
-                          showDialog(context: context, builder: (BuildContext context){
-                            return const PopupDialog();
-                          });
-                        },
-                        child: const Pill()),
-                  );
-                }),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const PopupDialog();
+                                  });
+                            },
+                            child: const Pill()),
+                      );
+                    }),
               ),
             ),
           ],

@@ -27,7 +27,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
   late PageController _titleController;
   late PageController _counterController;
   int _selectedCounter = 0;
-  int _currentIndex = 0; // Track the current index of the content
+  int _currentIndex = 0;
   DateTime _selectedTime = DateTime.now();
   late TabController _tabController;
 
@@ -80,19 +80,22 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
-            child: PageView(
-              controller: _titleController,
-              onPageChanged: (int index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              children: const [
-                TitleTabs(image: AppAssets.icon, nameTitle: "Name of disease ?"),
-                TitleTabs(image: AppAssets.drug, nameTitle: "Name of drug ?"),
-                TitleTabs(image: AppAssets.timeCapsule, nameTitle: "How many times a day ?"),
-                TitleTabs(image: AppAssets.time, nameTitle: "When will be the first time you take the treatment ?"),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: PageView(
+                controller: _titleController,
+                onPageChanged: (int index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                children: const [
+                  TitleTabs(image: AppAssets.icon, nameTitle: "Name of disease ?"),
+                  TitleTabs(image: AppAssets.drug, nameTitle: "Name of drug ?"),
+                  TitleTabs(image: AppAssets.timeCapsule, nameTitle: "How many times a day ?"),
+                  TitleTabs(image: AppAssets.time, nameTitle: "When will be the first time you take the treatment ?"),
+                ],
+              ),
             ),
           ),
           Padding(

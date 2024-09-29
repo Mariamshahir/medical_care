@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           Navigator.pushReplacementNamed(
                               context, Profile.routeName);
-                          Navigator.of(context);
                         },
                         icon: const Icon(Icons.logout),
                         color: AppColors.primaryColor,
@@ -87,75 +86,61 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Reminder", style: AppTheme.name),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Remamber(
-                    title: "Restock your Metaformin drug",
-                    disc: "Diabetes medicine",
-                    icon: Icons.notifications_on_outlined,
-                    color: AppColors.yellow,
-                    rem: '1 cap remainning',
-                    colorIcon: AppColors.yellow,
-                  ),
-                  const SizedBox(height: 23),
-                  Row(
-                    children: [
-                      const Text("Today’s medications", style: AppTheme.name),
-                      const Spacer(),
-                      InkWell(
-                        onTap: () {},
-                        child: Text("View all",
-                            style: AppTheme.name.copyWith(fontSize: 15)),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Reminder", style: AppTheme.name),
+                    const SizedBox(height: 15),
+                    const Remamber(
+                      title: "Restock your Metaformin drug",
+                      disc: "Diabetes medicine",
+                      icon: Icons.notifications_on_outlined,
+                      color: AppColors.yellow,
+                      rem: '1 cap remaining',
+                      colorIcon: AppColors.yellow,
+                    ),
+                    const SizedBox(height: 23),
+                    Row(
+                      children: [
+                        const Text("Today’s medications", style: AppTheme.name),
+                        const Spacer(),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, AddDrug.routeName);
+                          },
+                          child: Text(
+                            "View all",
+                            style: AppTheme.name.copyWith(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Remamber(
+                              onTap: AddDrug.routeName,
+                              title: "Metaformin",
+                              disc: "Diabetes drug",
+                              icon: Icons.clean_hands_outlined,
+                              color: AppColors.green,
+                              rem: "1 cap",
+                              time: "8 AM",
+                              colorIcon: AppColors.green,
+                            ),
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Remamber(
-                    onTap: AddDrug.routeName,
-                    title: "Metaformin",
-                    disc: "Diabetes drug ",
-                    icon: Icons.clean_hands_outlined,
-                    color: AppColors.green,
-                    rem: "1 cap",
-                    time: "8 AM",
-                    colorIcon: AppColors.green,
-                  ),
-                  const SizedBox(
-                    height: 17,
-                  ),
-                  const Remamber(
-                    onTap: AddDrug.routeName,
-                    title: "panadol extra",
-                    disc: "Influenza drug ",
-                    icon: Icons.clean_hands_outlined,
-                    color: AppColors.green,
-                    rem: "1 cap after breakast",
-                    time: "10 AM",
-                    colorIcon: AppColors.green,
-                  ),
-                  const SizedBox(
-                    height: 17,
-                  ),
-                  const Remamber(
-                    onTap: AddDrug.routeName,
-                    title: "concor 5 plus",
-                    disc: "High pressure drug",
-                    icon: Icons.clean_hands_outlined,
-                    color: AppColors.green,
-                    rem: "1 cap before lunch",
-                    time: "12 PM",
-                    colorIcon: AppColors.green,
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             )
           ],

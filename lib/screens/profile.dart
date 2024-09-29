@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:medical_care/screens/splash.dart';
 import 'package:medical_care/utils/aap_theme.dart';
 import 'package:medical_care/utils/app_colors.dart';
 import 'package:medical_care/widget/gender_box.dart';
-import 'package:medical_care/widget/next_steps.dart';
-import 'package:medical_care/screens/questions.dart';
+import 'package:medical_care/widget/save.dart';
 
 class Profile extends StatefulWidget {
   static const String routeName = "profile";
@@ -121,7 +121,10 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
               const SizedBox(height: 30),
-              const NextSteps(nextStep: Questions.routeName, nameNextStep: "Save",)
+              const Save(
+                nextStep: Splash.routeName,
+                nameNextStep: "Save",
+              )
             ],
           ),
         ),
@@ -156,7 +159,7 @@ class _DatePickerDropdownsState extends State<DatePickerDropdowns> {
     'DEC'
   ];
   List<String> years =
-  List<String>.generate(100, (i) => (DateTime.now().year - i).toString());
+      List<String>.generate(100, (i) => (DateTime.now().year - i).toString());
 
   @override
   Widget build(BuildContext context) {

@@ -6,12 +6,14 @@ class Boxes extends StatefulWidget {
   final String name;
   final IconData icon;
   final VoidCallback onTap;
+  final bool isTextEntered;
 
   const Boxes({
     Key? key,
     required this.name,
     required this.icon,
     required this.onTap,
+    this.isTextEntered = false,
   }) : super(key: key);
 
   @override
@@ -19,19 +21,10 @@ class Boxes extends StatefulWidget {
 }
 
 class _BoxesState extends State<Boxes> {
-  bool isDone = false; // State to track if done button was clicked
-
-  void handleTap() {
-    widget.onTap(); // Call the provided onTap function
-    setState(() {
-      isDone = true; // Update the state to show the done icon
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: handleTap,
+      onTap: widget.onTap,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height * 0.07,
@@ -58,8 +51,8 @@ class _BoxesState extends State<Boxes> {
                 widget.name,
                 style: AppTheme.tabs.copyWith(color: AppColors.primaryColor),
               ),
-              const Spacer(), // Push the icon to the end
-              if (isDone) // Conditionally show the icon
+              const Spacer(),
+              if (widget.isTextEntered)
                 const Icon(Icons.check_circle, color: Colors.green),
             ],
           ),
@@ -68,4 +61,3 @@ class _BoxesState extends State<Boxes> {
     );
   }
 }
-
