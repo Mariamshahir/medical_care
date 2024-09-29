@@ -28,8 +28,7 @@ class _GenderBoxState extends State<GenderBox> {
         widget.onSelect(!widget.isSelected);
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.4,
-        height: MediaQuery.of(context).size.height * 0.06,
+        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
         decoration: BoxDecoration(
           color: widget.isSelected ? AppColors.primaryColor : Colors.white,
           border: Border.all(
@@ -50,7 +49,7 @@ class _GenderBoxState extends State<GenderBox> {
             const SizedBox(width: 8),
             Text(
               widget.name,
-              style: AppTheme.formtext,
+              style: AppTheme.formtext.copyWith(color: widget.isSelected? AppColors.white:AppColors.gray),
             ),
           ],
         ),

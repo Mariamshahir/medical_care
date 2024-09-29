@@ -27,7 +27,6 @@ class AddDrug extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.1,
               decoration: const BoxDecoration(
                 color: AppColors.green,
                 borderRadius: BorderRadius.all(Radius.circular(10)),

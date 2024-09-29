@@ -9,6 +9,7 @@ abstract class AppTheme {
   static const TextStyle formtext = TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w500,
+      overflow: TextOverflow.ellipsis,
       color: AppColors.gray,
       fontFamily: "Poppins");
   static const TextStyle titleTabs = TextStyle(

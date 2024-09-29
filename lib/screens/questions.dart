@@ -20,7 +20,8 @@ class Questions extends StatefulWidget {
   State<Questions> createState() => _QuestionsState();
 }
 
-class _QuestionsState extends State<Questions> with SingleTickerProviderStateMixin {
+class _QuestionsState extends State<Questions>
+    with SingleTickerProviderStateMixin {
   String? selectedDisease;
   final TextEditingController _controller = TextEditingController();
   late PageController _pageController;
@@ -76,7 +77,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
         iconTheme: const IconThemeData(color: AppColors.primaryColor),
       ),
       backgroundColor: AppColors.green,
-      body: ListView(
+      body: Column(
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
@@ -90,10 +91,16 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
                   });
                 },
                 children: const [
-                  TitleTabs(image: AppAssets.icon, nameTitle: "Name of disease ?"),
+                  TitleTabs(
+                      image: AppAssets.icon, nameTitle: "Name of disease ?"),
                   TitleTabs(image: AppAssets.drug, nameTitle: "Name of drug ?"),
-                  TitleTabs(image: AppAssets.timeCapsule, nameTitle: "How many times a day ?"),
-                  TitleTabs(image: AppAssets.time, nameTitle: "When will be the first time you take the treatment ?"),
+                  TitleTabs(
+                      image: AppAssets.timeCapsule,
+                      nameTitle: "How many times a day ?"),
+                  TitleTabs(
+                      image: AppAssets.time,
+                      nameTitle:
+                          "When will be the first time you take the treatment ?"),
                 ],
               ),
             ),
@@ -117,28 +124,29 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height*0.01,),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
-            ),
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (int index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              children: [
-                buildDisease(context),
-                buildDrug(context),
-                buildTimeDay(context),
-                buildTimes(context),
-              ],
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+              ),
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: (int index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                children: [
+                  buildDisease(context),
+                  buildDrug(context),
+                  buildTimeDay(context),
+                  buildTimes(context),
+                ],
+              ),
             ),
           ),
         ],
@@ -154,8 +162,10 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
           TimePickerSpinner(
             alignment: Alignment.center,
             is24HourMode: false,
-            normalTextStyle: AppTheme.form.copyWith(fontSize: 25, color: AppColors.green),
-            highlightedTextStyle: AppTheme.form.copyWith(fontSize: 25, color: AppColors.primaryColor),
+            normalTextStyle:
+                AppTheme.form.copyWith(fontSize: 25, color: AppColors.green),
+            highlightedTextStyle: AppTheme.form
+                .copyWith(fontSize: 25, color: AppColors.primaryColor),
             spacing: 40,
             itemHeight: 50,
             isForce2Digits: true,
@@ -165,7 +175,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
               });
             },
           ),
-          SizedBox(height: MediaQuery.of(context).size.height*0.3,),
+          const Spacer(),
           const NextSteps(
             nextStep: Conferm.routeName,
             nameNextStep: "Next",
@@ -204,7 +214,9 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
                     itemBuilder: (context, index) {
                       return Counter(
                         counter: index,
-                        color: _selectedCounter == index ? AppColors.primaryColor : AppColors.green,
+                        color: _selectedCounter == index
+                            ? AppColors.primaryColor
+                            : AppColors.green,
                       );
                     },
                   ),
@@ -218,7 +230,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
             ],
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+        Spacer(),
         NextSteps(
           nameNextStep: "Next",
           icon: Icons.play_arrow_rounded,
@@ -230,6 +242,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
           icon: Icons.arrow_left_outlined,
           onTap: backTab,
         ),
+        Spacer(),
       ],
     );
   }
@@ -264,7 +277,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
             ),
           ),
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+        const Spacer(flex: 5),
         NextSteps(
           nameNextStep: "Next",
           icon: Icons.play_arrow_rounded,
@@ -276,6 +289,7 @@ class _QuestionsState extends State<Questions> with SingleTickerProviderStateMix
           icon: Icons.arrow_left_outlined,
           onTap: backTab,
         ),
+        const Spacer(),
       ],
     );
   }

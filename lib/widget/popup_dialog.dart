@@ -45,9 +45,12 @@ class _PopupDialogState extends State<PopupDialog> {
             const Row(
               children: [
                 Icon(Icons.calendar_month, color: AppColors.primaryColor),
-                Text(
-                  "Scheduled for 4:30 AM, today",
-                  style: AppTheme.formtext,
+                Expanded(
+                  child: Text(
+                    "Scheduled for 4:30 AM, today",
+                    style: AppTheme.formtext,
+                    maxLines: 2,
+                  ),
                 ),
               ],
             ),
@@ -56,9 +59,12 @@ class _PopupDialogState extends State<PopupDialog> {
               children: [
                 Icon(Icons.restore_page_outlined,
                     color: AppColors.primaryColor),
-                Text(
-                  "325-5 mg, take 1 Pill(s) before eating",
-                  style: AppTheme.formtext,
+                Expanded(
+                  child: Text(
+                    "325-5 mg, take 1 Pill(s) before eating",
+                    style: AppTheme.formtext,
+                    maxLines: 2,
+                  ),
                 ),
               ],
             ),
@@ -66,7 +72,9 @@ class _PopupDialogState extends State<PopupDialog> {
             const Row(
               children: [
                 Icon(Icons.local_drink_outlined, color: AppColors.primaryColor),
-                Text("2 pill(s) left", style: AppTheme.formtext),
+                Expanded(
+                    child: Text("2 pill(s) left",
+                        style: AppTheme.formtext, maxLines: 2)),
               ],
             ),
             const SizedBox(height: 20),
