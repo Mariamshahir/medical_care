@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_care/homescreen.dart';
 import 'package:medical_care/screens/add_drug.dart';
-import 'package:medical_care/screens/conferm.dart';
 import 'package:medical_care/screens/edit_add.dart';
 import 'package:medical_care/screens/profile.dart';
 import 'package:medical_care/screens/questions.dart';
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName: (_) => const HomeScreen(),
         Profile.routeName: (_) => const Profile(),
-        Conferm.routeName: (context) => const Conferm(),
         AddDrug.routeName: (context) => const AddDrug(),
         EditAdd.routeName: (context) => const EditAdd(),
         Questions.routeName: (context) => const Questions(),
