@@ -29,7 +29,7 @@ class _BoxesState extends State<Boxes> {
         width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height * 0.07,
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.cramy,
           border: Border.all(
             color: AppColors.white,
             width: 1,

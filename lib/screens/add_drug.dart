@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medical_care/screens/edit_add.dart';
 import 'package:medical_care/screens/questions.dart';
 import 'package:medical_care/widget/remamber.dart';
 import 'package:medical_care/utils/aap_theme.dart';
@@ -54,39 +53,25 @@ class AddDrug extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            const Remamber(
-              onTap: EditAdd.routeName,
-              title: "Metaformin",
-              disc: "Diabetes drug ",
-              icon: Icons.clean_hands_outlined,
-              color: AppColors.green,
-              rem: "1 cap",
-              time: "8 AM",
-              colorIcon: AppColors.green,
-            ),
-            const SizedBox(
-              height: 17,
-            ),
-            const Remamber(
-              title: "panadol extra",
-              disc: "Influenza drug ",
-              icon: Icons.clean_hands_outlined,
-              color: AppColors.green,
-              rem: "1 cap after breakast",
-              time: "10 AM",
-              colorIcon: AppColors.green,
-            ),
-            const SizedBox(
-              height: 17,
-            ),
-            const Remamber(
-              title: "concor 5 plus",
-              disc: "High pressure drug",
-              icon: Icons.clean_hands_outlined,
-              color: AppColors.green,
-              rem: "1 cap before lunch",
-              time: "12 PM",
-              colorIcon: AppColors.green,
+            Expanded(
+              child: ListView.builder(
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Remamber(
+                      onTap: AddDrug.routeName,
+                      title: "Metaformin",
+                      disc: "Diabetes drug",
+                      icon: Icons.clean_hands_outlined,
+                      color: AppColors.green,
+                      rem: "1 cap",
+                      time: "8 AM",
+                      colorIcon: AppColors.green,
+                    ),
+                  );
+                },
+              ),
             ),
             const Spacer(),
             const NextSteps(

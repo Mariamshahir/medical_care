@@ -25,7 +25,8 @@ class NextSteps extends StatelessWidget {
         } else if (nextStep != null) {
           Navigator.pushNamed(context, nextStep!);
         }
-      },      child: Container(
+      },
+      child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.08,
         decoration: BoxDecoration(

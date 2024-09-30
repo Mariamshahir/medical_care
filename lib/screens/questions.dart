@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:medical_care/screens/conferm.dart';
+import 'package:medical_care/homescreen.dart';
 import 'package:medical_care/utils/aap_theme.dart';
 import 'package:medical_care/utils/app_assets.dart';
 import 'package:medical_care/utils/app_colors.dart';
+import 'package:medical_care/widget/boxes.dart';
 import 'package:medical_care/widget/choose_disease.dart';
 import 'package:medical_care/widget/counter.dart';
 import 'package:medical_care/widget/next_steps.dart';
 import 'package:medical_care/widget/previous_steps.dart';
+import 'package:medical_care/widget/remamber.dart';
+import 'package:medical_care/widget/save.dart';
+import 'package:medical_care/widget/show_dialog.dart';
 import 'package:medical_care/widget/title_tabs.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:time_picker_spinner/time_picker_spinner.dart';
@@ -31,6 +35,27 @@ class _QuestionsState extends State<Questions>
   int _currentIndex = 0;
   DateTime _selectedTime = DateTime.now();
   late TabController _tabController;
+  bool _isTextEnteredDuration = false;
+  bool _isTextEnteredReminder = false;
+  bool _isTextEnteredInstructions = false;
+
+  void _onTextEnteredDuration(bool isEntered) {
+    setState(() {
+      _isTextEnteredDuration = isEntered;
+    });
+  }
+
+  void _onTextEnteredReminder(bool isEntered) {
+    setState(() {
+      _isTextEnteredReminder = isEntered;
+    });
+  }
+
+  void _onTextEnteredInstructions(bool isEntered) {
+    setState(() {
+      _isTextEnteredInstructions = isEntered;
+    });
+  }
 
   @override
   void initState() {
@@ -50,7 +75,7 @@ class _QuestionsState extends State<Questions>
   }
 
   void nextTab() {
-    if (_currentIndex < 3) {
+    if (_currentIndex < 4) {
       _currentIndex++;
       _titleController.animateToPage(_currentIndex,
           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
@@ -101,6 +126,15 @@ class _QuestionsState extends State<Questions>
                       image: AppAssets.time,
                       nameTitle:
                           "When will be the first time you take the treatment ?"),
+                  Remamber(
+                    title: "Metaformin",
+                    disc: "Diabetes drug ",
+                    icon: Icons.medical_services,
+                    color: AppColors.green,
+                    rem: '1 cap',
+                    time: "8 AM",
+                    colorIcon: AppColors.primaryColor,
+                  ),
                 ],
               ),
             ),
@@ -110,14 +144,14 @@ class _QuestionsState extends State<Questions>
             child: Center(
               child: SmoothPageIndicator(
                 controller: _titleController,
-                count: 4,
+                count: 5,
                 effect: const ExpandingDotsEffect(
                   activeDotColor: AppColors.primaryColor,
                   dotHeight: 4.0,
                   radius: 0,
                   dotColor: AppColors.white,
                   dotWidth: 9.0,
-                  expansionFactor: 4,
+                  expansionFactor: 5,
                   paintStyle: PaintingStyle.fill,
                   offset: 9,
                 ),
@@ -145,9 +179,109 @@ class _QuestionsState extends State<Questions>
                   buildDrug(context),
                   buildTimeDay(context),
                   buildTimes(context),
+                  buildConferm(context)
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildConferm(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 48),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Almost done. Would you like to:",
+            style: AppTheme.formtext,
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Boxes(
+                    name: 'Duration definder',
+                    icon: Icons.calendar_month_rounded,
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ShowDialog(
+                            icon: Icons.timer_sharp,
+                            title:
+                            'How many hours will there be between each tablet and the next?',
+                            text: 'Hours',
+                            hint: 'Hours',
+                            onTextEntered: _onTextEnteredDuration,
+                          );
+                        },
+                      );
+                    },
+                    isTextEntered: _isTextEnteredDuration,
+                  ),
+                  const SizedBox(height: 20),
+                  Boxes(
+                    name: 'Get refill reminder ?',
+                    icon: Icons.notifications_active_outlined,
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ShowDialog(
+                            icon: Icons.notifications_active_outlined,
+                            title:
+                            'When should we remind you to refill your prescription ?',
+                            text: 'Bills left',
+                            hint: 'Bills left',
+                            onTextEntered: _onTextEnteredReminder,
+                          );
+                        },
+                      );
+                    },
+                    isTextEntered: _isTextEnteredReminder,
+                  ),
+                  const SizedBox(height: 20),
+                  Boxes(
+                    name: 'Add instructions ?',
+                    icon: Icons.calendar_month_rounded,
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ShowDialog(
+                            icon: Icons.add_circle_outline_rounded,
+                            title: 'Add instructions?',
+                            text: 'Write your instructions',
+                            onTextEntered: _onTextEnteredInstructions,
+                          );
+                        },
+                      );
+                    },
+                    isTextEntered: _isTextEnteredInstructions,
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+          Save(
+            nameNextStep: "Save",
+            onTap: () {
+              _showDialog(context);
+            },
+          ),
+          const SizedBox(height: 16),
+          PreviousSteps(
+            previousStep: Questions.routeName,
+            namePreviousStep: "Previous",
+            icon: Icons.arrow_left_outlined,
+            onTap: backTab,
           ),
         ],
       ),
@@ -176,10 +310,10 @@ class _QuestionsState extends State<Questions>
             },
           ),
           const Spacer(),
-          const NextSteps(
-            nextStep: Conferm.routeName,
+          NextSteps(
             nameNextStep: "Next",
             icon: Icons.play_arrow_rounded,
+            onTap: nextTab,
           ),
           const SizedBox(height: 16),
           PreviousSteps(
@@ -230,7 +364,7 @@ class _QuestionsState extends State<Questions>
             ],
           ),
         ),
-        Spacer(),
+        const Spacer(),
         NextSteps(
           nameNextStep: "Next",
           icon: Icons.play_arrow_rounded,
@@ -242,7 +376,7 @@ class _QuestionsState extends State<Questions>
           icon: Icons.arrow_left_outlined,
           onTap: backTab,
         ),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }
@@ -335,5 +469,48 @@ class _QuestionsState extends State<Questions>
         ),
       ],
     );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white,
+            actions: [
+              const Center(
+                child: Image(
+                  image: AssetImage(AppAssets.save),
+                  alignment: Alignment.center,
+                ),
+              ),
+              const Center(
+                  child: Text(
+                "Your drug added succefully",
+                style: AppTheme.titleTabs,
+                maxLines: 2,
+              )),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, HomeScreen.routeName);
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  decoration: const BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Ok',
+                      style: AppTheme.dialog.copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
