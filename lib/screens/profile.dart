@@ -1,3 +1,4 @@
+import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_care/screens/splash.dart';
 import 'package:medical_care/utils/aap_theme.dart';
@@ -79,7 +80,7 @@ class _ProfileState extends State<Profile> {
                 icon: Icons.phone_outlined,
               ),
               const SizedBox(height: 16),
-              DatePickerDropdowns(),
+              buildDate(),
               const SizedBox(height: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,132 +132,40 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-}
 
-class DatePickerDropdowns extends StatefulWidget {
-  @override
-  _DatePickerDropdownsState createState() => _DatePickerDropdownsState();
-}
-
-class _DatePickerDropdownsState extends State<DatePickerDropdowns> {
-  String? selectedDay;
-  String? selectedMonth;
-  String? selectedYear;
-
-  List<String> days = List<String>.generate(31, (i) => (i + 1).toString());
-  List<String> months = [
-    'JAN',
-    'FEB',
-    'MAR',
-    'APR',
-    'MAY',
-    'JUN',
-    'JUL',
-    'AUG',
-    'SEP',
-    'OCT',
-    'NOV',
-    'DEC'
-  ];
-  List<String> years =
-      List<String>.generate(100, (i) => (DateTime.now().year - i).toString());
-
-  @override
-  Widget build(BuildContext context) {
+  Column buildDate() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Date of Birth",
+          "Date of birth",
           style: AppTheme.form,
         ),
         const SizedBox(height: 6),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: selectedDay,
-                hint: const Text(
-                  "Day",
-                  style: AppTheme.formtext,
-                ),
-                items: days.map((String day) {
-                  return DropdownMenuItem<String>(
-                    value: day,
-                    child: Text(day),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedDay = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  enabledBorder: buildOutlineInputBorder(),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                ),
-                iconEnabledColor: AppColors.green,
-                dropdownColor: Colors.white,
-              ),
+        DropdownDatePicker(
+          monthFlex: 1,
+          dayFlex: 1,
+          yearFlex: 1,
+          isDropdownHideUnderline: false,
+          hintDay: "Date",
+          hintMonth: "Month",
+          hintYear: "Year",
+          hintTextStyle: AppTheme.formtext,
+          boxDecoration: BoxDecoration(
+            border: Border.all(
+              color: AppColors.green,
+              width: 1,
+              style: BorderStyle.solid,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: selectedMonth,
-                hint: const Text(
-                  "Month",
-                  style: AppTheme.formtext,
-                ),
-                items: months.map((String month) {
-                  return DropdownMenuItem<String>(
-                    value: month,
-                    child: Text(month),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedMonth = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  enabledBorder: buildOutlineInputBorder(),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                ),
-                iconEnabledColor: AppColors.green,
-                dropdownColor: Colors.white,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: selectedYear,
-                hint: const Text(
-                  "Year",
-                  style: AppTheme.formtext,
-                ),
-                items: years.map((String year) {
-                  return DropdownMenuItem<String>(
-                    value: year,
-                    child: Text(year),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedYear = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  labelStyle: AppTheme.formtext,
-                  enabledBorder: buildOutlineInputBorder(),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                ),
-                iconEnabledColor: AppColors.green,
-                dropdownColor: Colors.white,
-              ),
-            ),
-          ],
-        ),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          icon: const Icon(
+            Icons.arrow_drop_down,
+            color: AppColors.green,
+          ),
+          textStyle: AppTheme.formtext,
+          endYear: DateTime.now().year,
+        )
       ],
     );
   }
